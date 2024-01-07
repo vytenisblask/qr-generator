@@ -75,8 +75,8 @@ const QRCodeGenerator = () => {
                 bgColor={bgColor}
                 renderAs="svg"
             />
-            <button onClick={downloadSvg}>Get SVG</button>
-            <button onClick={downloadPng}>Get PNG</button>
+            <button onClick={downloadSvg}>Download SVG</button>
+            <button onClick={downloadPng}>Download PNG</button>
         </div>
     );
 };
