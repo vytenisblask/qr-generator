@@ -15,25 +15,39 @@
   margin-bottom: 20px;
 }
 
-input[type="text"] {
+input[type="text"], input[type="range"] {
   margin: 10px;
   padding: 10px;
   font-size: 16px;
-}
-
-input[type="range"] {
-  margin: 10px;
+  width: 80%; /* Adjust width as needed */
 }
 
 .qr-code-container {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px; /* Space between QR code and color pickers */
   padding: 20px;
-  margin-top: 20px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+}
+
+.color-pickers {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 @media (max-width: 600px) {
+  .qr-code-container {
+    flex-direction: column;
+  }
+
+  .color-pickers {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
   input[type="text"], input[type="range"], .sketch-picker {
     width: 90%;
   }
@@ -46,6 +60,7 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin: 10px 0; /* Added margin for spacing */
 }
 
 button:hover {

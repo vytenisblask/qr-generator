@@ -58,27 +58,31 @@ const QRCodeGenerator = () => {
     };
 
     return (
-        <div>
+        <div className="App-header">
             <input type="text" value={url} onChange={handleUrlChange} placeholder="Enter URL" />
             <input type="range" min="128" max="512" value={qrSize} onChange={handleSizeChange} />
             <button onClick={toggleColorPickers}>Change Colors</button>
-            {showColorPickers && (
-                <>
-                    <SketchPicker color={fgColor} onChangeComplete={handleFgColorChange} />
-                    <SketchPicker color={bgColor} onChangeComplete={handleBgColorChange} />
-                </>
-            )}
-            <QRCode
-                value={url || ' '}
-                size={qrSize}
-                fgColor={fgColor}
-                bgColor={bgColor}
-                renderAs="svg"
-            />
+            
+            <div className="qr-code-container">
+                <QRCode
+                    value={url || ' '}
+                    size={qrSize}
+                    fgColor={fgColor}
+                    bgColor={bgColor}
+                    renderAs="svg"
+                />
+                {showColorPickers && (
+                    <div className="color-pickers">
+                        <SketchPicker color={fgColor} onChangeComplete={handleFgColorChange} />
+                        <SketchPicker color={bgColor} onChangeComplete={handleBgColorChange} />
+                    </div>
+                )}
+            </div>
+    
             <button onClick={downloadSvg}>Download SVG</button>
             <button onClick={downloadPng}>Download PNG</button>
         </div>
-    );
+    );    
 };
 
 export default QRCodeGenerator;
