@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import QRCode from 'qrcode.react';
 import { SketchPicker } from 'react-color';
+import {
+    Box, Input, Button, Slider, SliderTrack, SliderFilledTrack, SliderThumb,
+    Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, PopoverHeader, PopoverBody
+  } from '@chakra-ui/react';
 
 const QRCodeGenerator = () => {
     const [url, setUrl] = useState('');
@@ -58,31 +62,51 @@ const QRCodeGenerator = () => {
     };
 
     return (
-        <div className="App-header">
-            <input type="text" value={url} onChange={handleUrlChange} placeholder="Enter URL" />
-            <input type="range" min="128" max="512" value={qrSize} onChange={handleSizeChange} />
-            <button onClick={toggleColorPickers}>Change Colors</button>
-            
-            <div className="qr-code-container">
-                <QRCode
-                    value={url || ' '}
-                    size={qrSize}
-                    fgColor={fgColor}
-                    bgColor={bgColor}
-                    renderAs="svg"
-                />
-                {showColorPickers && (
-                    <div className="color-pickers">
-                        <SketchPicker color={fgColor} onChangeComplete={handleFgColorChange} />
-                        <SketchPicker color={bgColor} onChangeComplete={handleBgColorChange} />
-                    </div>
-                )}
-            </div>
-    
-            <button onClick={downloadSvg}>Download SVG</button>
-            <button onClick={downloadPng}>Download PNG</button>
-        </div>
-    );    
+        <Box className="App-header">
+          <Input
+            type="text"
+            value={url}
+            onChange={handleUrlChange}
+            placeholder="Enter URL"
+            mb={4}
+          />
+      
+          <Slider defaultValue={qrSize} min={128} max={512} onChange={setQrSize}>
+            <SliderTrack>
+              <SliderFilledTrack />
+            </SliderTrack>
+            <SliderThumb />
+          </Slider>
+      
+          <Popover>
+            <PopoverTrigger>
+              <Button>Change Colors</Button>
+            </PopoverTrigger>
+            <PopoverContent color='white' bg='blue.800' borderColor='blue.800'>
+              <PopoverArrow />
+              <PopoverCloseButton />
+              <PopoverHeader pt={4} fontWeight='bold' border='0'>Select QR Code Colors</PopoverHeader>
+              <PopoverBody>
+                <SketchPicker color={fgColor} onChangeComplete={handleFgColorChange} />
+                <SketchPicker color={bgColor} onChangeComplete={handleBgColorChange} />
+              </PopoverBody>
+            </PopoverContent>
+          </Popover>
+      
+          <Box className="qr-code-container">
+            <QRCode
+              value={url || ' '}
+              size={qrSize}
+              fgColor={fgColor}
+              bgColor={bgColor}
+              renderAs="svg"
+            />
+          </Box>
+      
+          <Button onClick={downloadSvg} mt={4}>Download SVG</Button>
+          <Button onClick={downloadPng} mt={4}>Download PNG</Button>
+        </Box>
+      );
 };
 
 export default QRCodeGenerator;
