@@ -77,22 +77,7 @@ const QRCodeGenerator = () => {
             </SliderTrack>
             <SliderThumb />
           </Slider>
-      
-          <Popover>
-            <PopoverTrigger>
-              <Button>Change Colors</Button>
-            </PopoverTrigger>
-            <PopoverContent color='white' bg='blue.800' borderColor='blue.800'>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader pt={4} fontWeight='bold' border='0'>Select QR Code Colors</PopoverHeader>
-              <PopoverBody>
-                <SketchPicker color={fgColor} onChangeComplete={handleFgColorChange} />
-                <SketchPicker color={bgColor} onChangeComplete={handleBgColorChange} />
-              </PopoverBody>
-            </PopoverContent>
-          </Popover>
-      
+
           <Box className="qr-code-container">
             <QRCode
               value={url || ' '}
@@ -102,7 +87,24 @@ const QRCodeGenerator = () => {
               renderAs="svg"
             />
           </Box>
-      
+
+        <Popover placement="right">
+            <PopoverTrigger>
+                <Button>Change Colors</Button>
+            </PopoverTrigger>
+            <PopoverContent color='white' bg='blue.800' borderColor='blue.800'>
+                <PopoverArrow color='white' bg='blue.800' borderColor='blue.800' />
+                <PopoverCloseButton />
+                <PopoverHeader pt={4} fontWeight='bold' border='0'>
+                Select QR Code Colors
+                </PopoverHeader>
+                <PopoverBody display="flex" flexDirection="row" justifyContent="center" gap="20px">
+                <SketchPicker color={fgColor} onChangeComplete={handleFgColorChange} />
+                <SketchPicker color={bgColor} onChangeComplete={handleBgColorChange} />
+                </PopoverBody>
+            </PopoverContent>
+        </Popover>
+
           <Button onClick={downloadSvg} mt={4}>Download SVG</Button>
           <Button onClick={downloadPng} mt={4}>Download PNG</Button>
         </Box>
