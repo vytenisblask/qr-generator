@@ -20,12 +20,12 @@ const QRCodeGenerator = () => {
   const handleBgColorChange = (color) => setBgColor(color.hex);
 
   const downloadSvg = () => {
-    const svg = document.querySelector('svg');
-    if (!svg) {
-        console.error('No SVG found');
-        return;
+    const svgElement = document.querySelector(".qr-code-container svg");
+    if (!svgElement) {
+      console.error('No SVG found');
+      return;
     }
-    const svgData = new XMLSerializer().serializeToString(svg);
+    const svgData = new XMLSerializer().serializeToString(svgElement);
     const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
     const svgUrl = URL.createObjectURL(svgBlob);
     const downloadLink = document.createElement("a");
@@ -34,31 +34,36 @@ const QRCodeGenerator = () => {
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
-};
+  };  
 
-const downloadPng = () => {
-    const svg = document.querySelector('svg');
-    if (!svg) {
-        console.error('No SVG found');
-        return;
+  const downloadPng = () => {
+    const svgElement = document.querySelector(".qr-code-container svg");
+    if (!svgElement) {
+      console.error('No SVG found');
+      return;
     }
+    const svgData = new XMLSerializer().serializeToString(svgElement);
+    const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+    const svgUrl = URL.createObjectURL(svgBlob);
+  
     const canvas = document.createElement('canvas');
+    canvas.width = qrSize;
+    canvas.height = qrSize;
     const ctx = canvas.getContext('2d');
     const img = new Image();
     img.onload = () => {
-        canvas.width = qrSize;
-        canvas.height = qrSize;
-        ctx.drawImage(img, 0, 0);
-        const dataUrl = canvas.toDataURL('image/png');
-        const downloadLink = document.createElement('a');
-        downloadLink.href = dataUrl;
-        downloadLink.download = 'qr-code.png';
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
+      ctx.drawImage(img, 0, 0);
+      const dataUrl = canvas.toDataURL('image/png');
+      const downloadLink = document.createElement('a');
+      downloadLink.href = dataUrl;
+      downloadLink.download = 'qr-code.png';
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+      URL.revokeObjectURL(svgUrl);
     };
-    img.src = 'data:image/svg+xml;base64,' + btoa(new XMLSerializer().serializeToString(svg));
-};
+    img.src = svgUrl;
+  };  
 
   return (
     <Box className="App-header">
