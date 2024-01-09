@@ -4,7 +4,7 @@ import { ChromePicker } from 'react-color';
 import {
   Box, Input, Button, Slider, SliderTrack, SliderFilledTrack, SliderThumb,
   Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, PopoverHeader, PopoverBody,
-  Select, FormLabel
+  Select, FormControl, FormLabel
 } from '@chakra-ui/react';
 
 const QRCodeGenerator = () => {
@@ -66,14 +66,17 @@ const QRCodeGenerator = () => {
   };  
 
   return (
-    <Box className="App-header">
-      <Input
-        type="text"
-        value={url}
-        onChange={handleUrlChange}
-        placeholder="Enter URL"
-        mb={4}
-      />
+    <Box p={8} className="App-header">
+        <FormControl variant="floating" id="qr-url">
+          <Input
+          type="text"
+          value={url}
+          onChange={handleUrlChange}
+          placeholder=" "
+          mb={4}
+        />
+        <FormLabel>Enter URL</FormLabel>
+      </FormControl>
 
       <FormLabel htmlFor="error-correction-level">Error Correction</FormLabel>
       <Select id="error-correction-level" value={errorCorrectionLevel} onChange={(e) => setErrorCorrectionLevel(e.target.value)} mb={4}>
