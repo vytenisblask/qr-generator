@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import QRCode from 'qrcode.react';
-import { SketchPicker } from 'react-color';
+import { ChromePicker } from 'react-color';
 import {
   Box, Input, Button, Slider, SliderTrack, SliderFilledTrack, SliderThumb,
   Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, PopoverHeader, PopoverBody,
@@ -114,8 +114,8 @@ const QRCodeGenerator = () => {
             Select QR Code Colors
           </PopoverHeader>
           <PopoverBody display="flex" flexDirection="row" justifyContent="center" gap="20px">
-            <SketchPicker color={fgColor} onChangeComplete={handleFgColorChange} />
-            <SketchPicker color={bgColor} onChangeComplete={handleBgColorChange} />
+            <ChromePicker color={fgColor} onChangeComplete={handleFgColorChange} />
+            <ChromePicker color={bgColor} onChangeComplete={handleBgColorChange} />
           </PopoverBody>
         </PopoverContent>
       </Popover>
