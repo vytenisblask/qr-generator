@@ -4,13 +4,7 @@ const activeLabelStyles = {
   transform: "scale(0.85) translateY(-24px)"
 };
 
-const config = {
-  initialColorMode: "dark",
-  useSystemColorMode: false,
-};
-
 const theme = extendTheme({
-  config,
   components: {
     Form: {
       variants: {
@@ -29,7 +23,7 @@ const theme = extendTheme({
               left: 0,
               zIndex: 2,
               position: "absolute",
-              backgroundColor: "#282c34",
+              backgroundColor: "var(--chakra-colors-chakra-body-bg)",
               pointerEvents: "none",
               mx: 3,
               px: 1,
