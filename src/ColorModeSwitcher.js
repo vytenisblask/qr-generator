@@ -1,15 +1,18 @@
 // ColorModeSwitcher.js
 import React from 'react';
-import { useColorMode, Switch, Flex, Text } from '@chakra-ui/react';
+import { useColorMode, IconButton } from '@chakra-ui/react';
+import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
 const ColorModeSwitcher = () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
-    <Flex align="center">
-      <Text mr={2}>{colorMode === 'light' ? 'Dark' : 'Light'} Mode</Text>
-      <Switch onChange={toggleColorMode} isChecked={colorMode === 'dark'} />
-    </Flex>
+    <IconButton
+      icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+      onClick={toggleColorMode}
+      isRound={true}
+      aria-label={colorMode === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+    />
   );
 };
 
