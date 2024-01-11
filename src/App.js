@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
 import QRCodeGenerator from './QRcodeGenerator';
-import { Flex, Box, useColorMode, Switch, Image } from '@chakra-ui/react';
+import { Flex, Box, useColorMode, Switch, Image, IconButton } from '@chakra-ui/react';
+import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
 function App() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -13,10 +14,11 @@ function App() {
           <Image src="path-to-your-logo.svg" alt="Logo" boxSize="50px" />
         </Box>
         <Box>
-          <label>
-            {colorMode === 'light' ? 'Dark' : 'Light'} Mode
-            <Switch onChange={toggleColorMode} isChecked={colorMode === 'dark'} />
-          </label>
+          <IconButton
+            icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+            onClick={toggleColorMode}
+            isRound={true}
+          />
         </Box>
       </Flex>
       <QRCodeGenerator />

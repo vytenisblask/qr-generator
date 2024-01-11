@@ -4,7 +4,13 @@ const activeLabelStyles = {
   transform: "scale(0.85) translateY(-24px)"
 };
 
-export const theme = extendTheme({
+const config = {
+  initialColorMode: "dark",
+  useSystemColorMode: false,
+};
+
+const theme = extendTheme({
+  config,
   components: {
     Form: {
       variants: {
@@ -36,3 +42,5 @@ export const theme = extendTheme({
     }
   }
 });
+
+export default theme;
