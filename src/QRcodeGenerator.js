@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import QRCode from 'qrcode.react';
-import { ChromePicker } from 'react-color';
+import { RgbaStringColorPicker } from 'react-colorful';
 import {
     Box, Flex, FormControl, FormLabel, Input, Button, Slider, SliderTrack, 
     SliderFilledTrack, SliderThumb, Popover, PopoverTrigger, PopoverContent, 
@@ -10,14 +10,14 @@ import {
 const QRCodeGenerator = () => {
   const [url, setUrl] = useState('');
   const [qrSize, setQrSize] = useState(128); // Default QR code size
-  const [fgColor, setFgColor] = useState('#000000'); // Default foreground color
-  const [bgColor, setBgColor] = useState('#ffffff'); // Default background color
-  const [errorCorrectionLevel, setErrorCorrectionLevel] = useState('L'); // Error correction level
+  const [fgColor, setFgColor] = useState('rgba(0, 0, 0, 1)');
+  const [bgColor, setBgColor] = useState('rgba(255, 255, 255, 1)');  
+  const [errorCorrectionLevel, setErrorCorrectionLevel] = useState('L');
 
   const handleUrlChange = (e) => setUrl(e.target.value);
   const handleSizeChange = (value) => setQrSize(value);
-  const handleFgColorChange = (color) => setFgColor(color.hex);
-  const handleBgColorChange = (color) => setBgColor(color.hex);
+  const handleFgColorChange = (color) => setFgColor(color);
+  const handleBgColorChange = (color) => setBgColor(color);
 
   const downloadSvg = () => {
     const svgElement = document.querySelector(".qr-code-container svg");
@@ -66,73 +66,74 @@ const QRCodeGenerator = () => {
   };  
 
   return (
-    <Flex direction={{ base: "column", md: "row" }}>
-      {/* Left Column: URL entry, settings, and size slider */}
-      <Box w={{ base: "100%", md: "50%" }} p={8}>
-        <FormControl variant="floating" id="qr-url">
-          <Input
-            type="text"
-            value={url}
-            onChange={handleUrlChange}
-            placeholder=" "
-            mb={4}
-          />
-          <FormLabel>Enter URL</FormLabel>
-        </FormControl>
-  
-        <FormLabel htmlFor="error-correction-level">Error Correction</FormLabel>
-        <Select id="error-correction-level" value={errorCorrectionLevel} onChange={(e) => setErrorCorrectionLevel(e.target.value)} mb={4}>
-          <option value="L">Level L (Low)</option>
-          <option value="M">Level M (Medium)</option>
-          <option value="Q">Level Q (Quartile)</option>
-          <option value="H">Level H (High)</option>
-        </Select>
-  
-        <FormLabel htmlFor="size-slider">Size</FormLabel>
-        <Slider defaultValue={qrSize} min={128} max={512} onChange={handleSizeChange}>
-          <SliderTrack>
-            <SliderFilledTrack />
-          </SliderTrack>
-          <SliderThumb />
-        </Slider>
-      </Box>
-  
-      {/* Right Column: Generated QR Code and buttons */}
-      <Box w={{ base: "100%", md: "50%" }} p={8}>
-        <Box className="qr-code-container" mb={4}>
-          <QRCode
-            value={url || ' '}
-            size={qrSize}
-            fgColor={fgColor}
-            bgColor={bgColor}
-            level={errorCorrectionLevel}
-            renderAs="svg"
-          />
+    <Flex direction={{ base: "column", md: "row" }} wrap="wrap">
+        {/* Left Column: URL entry, settings, and size slider */}
+        <Box w={{ base: "100%", md: "50%" }} p={8}>
+            <FormControl variant="floating" id="qr-url">
+                <Input
+                    type="text"
+                    value={url}
+                    onChange={handleUrlChange}
+                    placeholder=" "
+                    mb={4}
+                />
+                <FormLabel>Enter URL</FormLabel>
+            </FormControl>
+
+            <FormLabel htmlFor="error-correction-level">Error Correction</FormLabel>
+            <Select id="error-correction-level" value={errorCorrectionLevel} onChange={(e) => setErrorCorrectionLevel(e.target.value)} mb={4}>
+                <option value="L">Level L (Low)</option>
+                <option value="M">Level M (Medium)</option>
+                <option value="Q">Level Q (Quartile)</option>
+                <option value="H">Level H (High)</option>
+            </Select>
+
+            <FormLabel htmlFor="size-slider">Size</FormLabel>
+            <Slider defaultValue={qrSize} min={128} max={512} onChange={handleSizeChange}>
+                <SliderTrack>
+                    <SliderFilledTrack />
+                </SliderTrack>
+                <SliderThumb />
+            </Slider>
         </Box>
-        <Box className="button-wrap">
-        <Popover placement="right">
-          <PopoverTrigger>
-            <Button colorScheme='blue'>Change Colors</Button>
-          </PopoverTrigger>
-          <PopoverContent color='white' bg='blue.800' borderColor='blue.800'>
-            <PopoverArrow bg='blue.800'/>
-            <PopoverCloseButton />
-            <PopoverHeader pt={4} fontWeight='bold' border='0'>
-              Select QR Code Colors
-            </PopoverHeader>
-            <PopoverBody display="flex" flexDirection="row" justifyContent="center" gap="20px">
-              <ChromePicker color={fgColor} onChangeComplete={handleFgColorChange} />
-              <ChromePicker color={bgColor} onChangeComplete={handleBgColorChange} />
-            </PopoverBody>
-          </PopoverContent>
-        </Popover>
-  
-        <Button onClick={downloadSvg}>Download SVG</Button>
-        <Button onClick={downloadPng}>Download PNG</Button>
-        </Box>
-      </Box>
-    </Flex>
-  );  
+
+            {/* Right Column: Generated QR Code and buttons */}
+            <Box w={{ base: "100%", md: "50%" }} p={8}>
+                <Box className="button-wrap">
+                    <Popover placement="left">
+                        <PopoverTrigger>
+                            <Button colorScheme='blue'>Change Colors</Button>
+                        </PopoverTrigger>
+                        <PopoverContent>
+                            <PopoverArrow/>
+                            <PopoverCloseButton />
+                            <PopoverHeader pt={4} fontWeight='bold' border='0' textAlign="center">
+                                Select QR Code Colors
+                            </PopoverHeader>
+                            <PopoverBody display="flex" flexDirection="row" justifyContent="center" gap="30px">
+                                <RgbaStringColorPicker color={fgColor} onChange={handleFgColorChange} />
+                                <RgbaStringColorPicker color={bgColor} onChange={handleBgColorChange} />
+                            </PopoverBody>
+                        </PopoverContent>
+                    </Popover>
+                    <Button onClick={downloadSvg}>Download SVG</Button>
+                    <Button onClick={downloadPng}>Download PNG</Button>
+                </Box>
+
+                <Box className="qr-code-container" mb={4}>
+                    <QRCode
+                        value={url || ' '}
+                        size={qrSize}
+                        fgColor={fgColor}
+                        bgColor={bgColor}
+                        level={errorCorrectionLevel}
+                        renderAs="svg"
+                    />
+                </Box>
+            </Box>
+        </Flex>
+);
+
 };
 
 export default QRCodeGenerator;
