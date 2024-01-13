@@ -109,7 +109,7 @@ const QRCodeGenerator = () => {
             renderAs="svg"
           />
         </Box>
-  
+        <Box className="button-wrap">
         <Popover placement="right">
           <PopoverTrigger>
             <Button colorScheme='blue'>Change Colors</Button>
@@ -127,8 +127,9 @@ const QRCodeGenerator = () => {
           </PopoverContent>
         </Popover>
   
-        <Button onClick={downloadSvg} mt={4}>Download SVG</Button>
-        <Button onClick={downloadPng} mt={4}>Download PNG</Button>
+        <Button onClick={downloadSvg}>Download SVG</Button>
+        <Button onClick={downloadPng}>Download PNG</Button>
+        </Box>
       </Box>
     </Flex>
   );  
