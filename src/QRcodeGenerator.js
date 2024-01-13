@@ -9,7 +9,7 @@ import {
 
 const QRCodeGenerator = () => {
   const [url, setUrl] = useState('');
-  const [qrSize, setQrSize] = useState(128); // Default QR code size
+  const [qrSize, setQrSize] = useState(168); // Default QR code size
   const [fgColor, setFgColor] = useState('rgba(0, 0, 0, 1)');
   const [bgColor, setBgColor] = useState('rgba(255, 255, 255, 1)');  
   const [errorCorrectionLevel, setErrorCorrectionLevel] = useState('L');
