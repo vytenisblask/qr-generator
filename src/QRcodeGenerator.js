@@ -36,6 +36,16 @@ const QRCodeGenerator = () => {
   const handleBgColorChange = (color) => setBgColor(color);
   const handleECLevelChange = (e) => setErrorCorrectionLevel(e.target.value);
 
+  const getRandomColor = () => {
+    const getRandom = () => Math.floor(Math.random() * 256);
+    return `rgba(${getRandom()}, ${getRandom()}, ${getRandom()}, 1)`;
+  };
+
+  const handleRandomizeColors = () => {
+    setFgColor(getRandomColor());
+    setBgColor(getRandomColor());
+  };
+
   const downloadSvg = () => {
     const svgElement = document.querySelector(".qr-code-container svg");
     if (!svgElement) {
@@ -122,17 +132,22 @@ const QRCodeGenerator = () => {
             <PopoverTrigger>
               <Button colorScheme='blue'>Change Colors</Button>
             </PopoverTrigger>
+
             <PopoverContent>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader pt={4} fontWeight='bold' border='0' textAlign="center">
-                Select QR Code Colors
+                <PopoverArrow />
+                <PopoverCloseButton />
+                <PopoverHeader pt={4} fontWeight='bold' border='0' textAlign="center">
+                    Select QR Code Colors
                 </PopoverHeader>
-            <PopoverBody display="flex" flexDirection="row" justifyContent="center" gap="30px">
-            <RgbaStringColorPicker color={fgColor} onChange={handleFgColorChange} />
-            <RgbaStringColorPicker color={bgColor} onChange={handleBgColorChange} />
-            </PopoverBody>
+                <PopoverBody display="flex" flexDirection="column" alignItems="center" gap="15px">
+                    <Box style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: '25px' }}>
+                    <RgbaStringColorPicker color={fgColor} onChange={handleFgColorChange} />
+                    <RgbaStringColorPicker color={bgColor} onChange={handleBgColorChange} />
+                    </Box>
+                    <Button mb={3} mt={3} onClick={handleRandomizeColors}>Randomize</Button>
+                </PopoverBody>
             </PopoverContent>
+
             </Popover>
             <Button onClick={downloadSvg}>Download SVG</Button>
             <Button onClick={downloadPng}>Download PNG</Button>
