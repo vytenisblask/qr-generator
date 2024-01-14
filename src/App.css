@@ -37,4 +37,8 @@
     justify-content: flex-start;
     padding-top: 10px;
   }
+
+  .button-wrap {
+    flex-direction: column;
+  }
 }
