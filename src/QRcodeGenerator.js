@@ -110,7 +110,7 @@ const QRCodeGenerator = () => {
         </FormControl>
 
         <FormLabel mt={4} htmlFor="error-correction-level">Error Correction
-        <Tooltip hasArrow label='Error correction in a QR code ensures that the code remains scannable and the URL remains accessible, even if part of the QR code is damaged or covered. Error correction level affects the QR code more noticeably when the URL is large enough to make the proportional increase in error correction data significant.'>
+        <Tooltip hasArrow label='Error correction in a QR code ensures that the code remains scannable and the URLa remains accessible, even if part of the QR code is damaged or covered. Error correction level affects the QR code more noticeably when the URL is large enough to make the proportional increase in error correction data significant.'>
             <Badge ml={2}>?</Badge>
         </Tooltip>
         </FormLabel>
@@ -132,7 +132,7 @@ const QRCodeGenerator = () => {
 
       <Box w={{ base: "100%", md: "50%" }} p={8}>
         <Box className="button-wrap">
-          <Popover placement="left">
+          <Popover placement="auto">
             <PopoverTrigger>
               <Button colorScheme='blue'>Change Colors</Button>
             </PopoverTrigger>
@@ -152,7 +152,7 @@ const QRCodeGenerator = () => {
                 </PopoverBody>
             </PopoverContent>
 
-            </Popover>
+         </Popover>
             <Button onClick={downloadSvg}>Download SVG</Button>
             <Button onClick={downloadPng}>Download PNG</Button>
             </Box>
