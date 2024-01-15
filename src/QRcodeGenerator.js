@@ -4,7 +4,7 @@ import { RgbaStringColorPicker } from 'react-colorful';
 import {
   Box, Flex, FormControl, FormLabel, Input, Button, Slider, SliderTrack, 
   SliderFilledTrack, SliderThumb, Popover, PopoverTrigger, PopoverContent, 
-  PopoverArrow, PopoverCloseButton, PopoverHeader, PopoverBody, Select, FormErrorMessage
+  PopoverArrow, PopoverCloseButton, PopoverHeader, PopoverBody, Select, FormErrorMessage, Badge, Tooltip
 } from '@chakra-ui/react';
 
 const QRCodeGenerator = () => {
@@ -109,7 +109,11 @@ const QRCodeGenerator = () => {
         </FormErrorMessage>
         </FormControl>
 
-        <FormLabel mt={4} htmlFor="error-correction-level">Error Correction</FormLabel>
+        <FormLabel mt={4} htmlFor="error-correction-level">Error Correction
+        <Tooltip hasArrow label='Error correction in a QR code ensures that the code remains scannable and the URL remains accessible, even if part of the QR code is damaged or covered. Error correction level affects the QR code more noticeably when the URL is large enough to make the proportional increase in error correction data significant.'>
+            <Badge ml={2}>?</Badge>
+        </Tooltip>
+        </FormLabel>
         <Select id="error-correction-level" value={errorCorrectionLevel} onChange={handleECLevelChange} mb={4}>
           <option value="L">Level L (Low)</option>
           <option value="M">Level M (Medium)</option>
