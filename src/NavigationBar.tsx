@@ -1,10 +1,9 @@
-// NavigationBar.js
-import React from 'react';
-import { Flex, Box, Divider } from '@chakra-ui/react';
-import ColorModeSwitcher from './ColorModeSwitcher';
-import LogoIcon from './LogoIcon';
+import React from "react";
+import { Flex, Box, Divider } from "@chakra-ui/react";
+import ColorModeSwitcher from "./ColorModeSwitcher";
+import LogoIcon from "./LogoIcon";
 
-const NavigationBar = () => {
+const NavigationBar: React.FC = () => {
   return (
     <>
       <Flex justifyContent="space-between" alignItems="center" p={4}>
