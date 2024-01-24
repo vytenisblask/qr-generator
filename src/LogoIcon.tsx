@@ -1,8 +1,7 @@
-// LogoIcon.js
 import React from "react";
 import { Icon, useColorModeValue } from "@chakra-ui/react";
 
-const LogoIcon = () => {
+const LogoIcon: React.FC = () => {
   const fillColor = useColorModeValue("black", "white");
 
   return (
