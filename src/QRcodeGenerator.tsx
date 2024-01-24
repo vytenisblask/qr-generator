@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 import QRCode from "qrcode.react";
 import { RgbaStringColorPicker } from "react-colorful";
 import {
@@ -25,21 +25,21 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 
-const QRCodeGenerator = () => {
-  const [url, setUrl] = useState("");
-  const [validationMessage, setValidationMessage] = useState("");
-  const [qrSize, setQrSize] = useState(168); // Default QR code size
-  const [fgColor, setFgColor] = useState("rgba(0, 0, 0, 1)");
-  const [bgColor, setBgColor] = useState("rgba(255, 255, 255, 1)");
-  const [errorCorrectionLevel, setErrorCorrectionLevel] = useState("L");
+const QRCodeGenerator: React.FC = () => {
+  const [url, setUrl] = useState<string>("");
+  const [validationMessage, setValidationMessage] = useState<string>("");
+  const [qrSize, setQrSize] = useState<number>(168); // Default QR code size
+  const [fgColor, setFgColor] = useState<string>("rgba(0, 0, 0, 1)");
+  const [bgColor, setBgColor] = useState<string>("rgba(255, 255, 255, 1)");
+  const [errorCorrectionLevel, setErrorCorrectionLevel] = useState<string>("L");
 
-  const isValidUrl = (urlString) => {
+  const isValidUrl = (urlString: string): boolean => {
     const regex =
       /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
     return regex.test(urlString);
   };
 
-  const handleUrlChange = (e) => {
+  const handleUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newUrl = e.target.value;
     setUrl(newUrl);
 
@@ -50,12 +50,13 @@ const QRCodeGenerator = () => {
     }
   };
 
-  const handleSizeChange = (value) => setQrSize(value);
-  const handleFgColorChange = (color) => setFgColor(color);
-  const handleBgColorChange = (color) => setBgColor(color);
-  const handleECLevelChange = (e) => setErrorCorrectionLevel(e.target.value);
+  const handleSizeChange = (value: number) => setQrSize(value);
+  const handleFgColorChange = (color: string) => setFgColor(color);
+  const handleBgColorChange = (color: string) => setBgColor(color);
+  const handleECLevelChange = (e: ChangeEvent<HTMLSelectElement>) =>
+    setErrorCorrectionLevel(e.target.value);
 
-  const getRandomColor = () => {
+  const getRandomColor = (): string => {
     const getRandom = () => Math.floor(Math.random() * 256);
     return `rgba(${getRandom()}, ${getRandom()}, ${getRandom()}, 1)`;
   };
@@ -100,6 +101,10 @@ const QRCodeGenerator = () => {
     canvas.width = qrSize;
     canvas.height = qrSize;
     const ctx = canvas.getContext("2d");
+    if (!ctx) {
+      console.error("Unable to get canvas context");
+      return;
+    }
     const img = new Image();
     img.onload = () => {
       ctx.drawImage(img, 0, 0);
